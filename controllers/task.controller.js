@@ -3,14 +3,45 @@ const { Task } = require('../models/task.models')
 //obtain task
 
 const getTask = async (req, res, next) => {
-    const task = await Task.findAll();
+    try {
+        const task = await Task.findAll({
+            where: { status: 'active' },
+        });
 
-    res.status(200).json({
-        status: 'succes',
-        data: { task },
-    })
+        res.status(200).json({
+            status: 'succes',
+            data: { task },
+        })
+
+    } catch (error) {
+        console.log(error)
+
+    }
 }
 
 
 
 //create task
+
+const newTask = async (req, res) => {
+    try {
+        const { title, user_id, limitDate, startDate } = req.body;
+        const newTask = await Task.create({ title, user_id, limitDate, startDate })
+
+        res.status(200).json({
+            status: 'succes',
+            data: { newTask },
+        })
+
+    } catch (error) {
+        console.log(error)
+
+    }
+
+}
+
+
+module.exports = {
+    getTask,
+    newTask
+}

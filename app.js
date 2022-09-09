@@ -10,6 +10,6 @@ app.use(express.json())
 
 //Endpoints
 app.use('/api/v1/users', userRouter)
-
+app.use('/api/v1/task', userRouter)
 
 module.exports = { app }
