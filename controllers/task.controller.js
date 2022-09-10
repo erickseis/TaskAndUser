@@ -28,20 +28,42 @@ const newTask = async (req, res) => {
         const { title, userId, limitDate, startDate } = req.body;
         const newTask = await Task.create({ title, userId, limitDate, startDate })
 
-        res.status(200).json({
-            status: 'succes',
-            data: { newTask },
-        })
+        const employee = await Task.findOne({ where: { finishDate, limitDate, late } })
 
-    } catch (error) {
-        console.log(error)
+        if (!employee) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Complete'
+            });
+        } else if (employee.status === 'canceled') {   //active, completed, late, cancelled
+            return res.status(400).json({
+                status: 'error',
+                message: 'Employee was cancelled'
+            })
+        } else if (employee.status === 'out') {
+            return res.status(400).json({
+                status: 'error',
+                message: 'This employee is already out'
+            })
+        } else {
+            await employee.update({ exitTime })
+
+
+
+            res.status(200).json({
+                status: 'succes',
+                data: { newTask },
+            })
+
+        } catch (error) {
+            console.log(error)
+
+        }
 
     }
 
-}
-
 
 module.exports = {
-    getTask,
-    newTask
-}
+        getTask,
+        newTask
+    }
