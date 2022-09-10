@@ -1,19 +1,20 @@
+const dotenv = require('dotenv');
 const { app } = require('./app');
-
+const { db } = require('./utils/database.utils');
 // Utils
 const { initModels } = require('./models/initModels')
-const { db } = require('./utils/database.utils');
 
+dotenv.config({ path: './config.env' });
 
 const startServer = async () => {
     try {
         //Database authenticated
-        await db.authenticate();
+        await db.authenticate().then();
 
         //estabilish models relations
         initModels();
         //database synced
-        await db.sync();
+        await db.sync().then();
 
         //spin up server
         const PORT = process.env.PORT || 4000;
