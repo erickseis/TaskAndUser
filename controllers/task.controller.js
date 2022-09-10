@@ -25,8 +25,8 @@ const getTask = async (req, res, next) => {
 
 const newTask = async (req, res) => {
     try {
-        const { title, user_id, limitDate, startDate } = req.body;
-        const newTask = await Task.create({ title, user_id, limitDate, startDate })
+        const { title, userId, limitDate, startDate } = req.body;
+        const newTask = await Task.create({ title, userId, limitDate, startDate })
 
         res.status(200).json({
             status: 'succes',

@@ -7,7 +7,7 @@ const Task = db.define('task', {
         autoIncrement: true,
         allowNull: false,
     },
-    user_id: {
+    userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
@@ -20,10 +20,6 @@ const Task = db.define('task', {
         allowNull: false,
     },
     startDate: {
-        type: DataTypes.DATE,
-        allowNull: false,
-    },
-    finishDate: {
         type: DataTypes.DATE,
         allowNull: false,
     },
