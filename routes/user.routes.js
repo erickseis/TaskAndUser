@@ -11,14 +11,14 @@ const {
 
 //Middlewares
 const { userExists } = require('../middlewares/users.middlewares')
-const { createPostValidators } = require('../middlewares/validators.middlewares')
+const { userValidators } = require('../middlewares/validators.middlewares')
 
 
 const userRouter = express.Router();
 
 userRouter.get('/', getAllUsers);
 
-userRouter.post('/', createPostValidators, createUser);
+userRouter.post('/', userValidators, createUser);
 
 userRouter.patch('/:id', userExists, updateUser);
 

@@ -33,7 +33,7 @@ const createUser = async (req, res) => {
 
         //201 > succes and resource has been created
         res.status(200).json({
-            status: 'succes',
+            status: 'success',
             data: { newUser },
         })
     } catch (error) {
